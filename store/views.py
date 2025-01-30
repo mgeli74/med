@@ -228,13 +228,18 @@ def create_delivery_request(request):
             
             # Уменьшение количества товаров на складе
             product = delivery_request.product
-            product.quantity -= delivery_request.quantity
-            product.save()
+            if product.quantity >= delivery_request.quantity:
+                product.quantity -= delivery_request.quantity
+                product.save()
+                # Очистка корзины после создания заявки
+                Basket.objects.filter(user=request.user, product=delivery_request.product).delete()
+                # Добавление сообщения об успешном заказе
+                messages.success(request, 'Ваш заказ успешно оформлен! Спасибо за покупку!')
+            else:
+                messages.error(request, 'Недостаточно товара на складе для выполнения заказа.')
+                delivery_request.delete()
+                return redirect('store:basket')
             
-            # Очистка корзины после создания заявки
-            Basket.objects.filter(user=request.user, product=delivery_request.product).delete()
-            # Добавление сообщения об успешном заказе
-            messages.success(request, 'Ваш заказ успешно оформлен! Спасибо за покупку!')
             return redirect('users:profile')
     else:
         baskets = Basket.objects.filter(user=request.user)
