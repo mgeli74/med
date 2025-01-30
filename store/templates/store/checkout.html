@@ -1,0 +1,88 @@
+{% extends 'store/item.html' %}
+
+{% block content %}
+<h1 class="text-white-50 text-center">Заказ</h1>
+{% if baskets %}
+    <div class="container d-flex justify-content-center">
+        <div class="order-summary" style="background-color: rgba(0, 0, 0, 0.7); padding: 20px; border-radius: 10px; width: 80%; max-width: 800px;">
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th>Товар</th>
+                        <th>Количество</th>
+                        <th>Цена</th>
+                        <th>Сумма</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for basket in baskets %}
+                        <tr data-product-id="{{ basket.product.id }}" style="cursor: pointer;">
+                            <td>{{ basket.product.name }}</td>
+                            <td>{{ basket.quantity }}</td>
+                            <td>{{ basket.product.price }} руб.</td>
+                            <td>{{ basket.sum }} руб.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="text-white">
+                <p>Общая сумма: {{ total_sum }} руб.</p>
+                <p>Общее количество: {{ total_quantity }}</p>
+            </div>
+            <div class="d-flex justify-content-between mt-3">
+                <a href="{% url 'store:basket' %}" class="btn btn-warning">Изменить заказ</a>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Подтвердить заказ</button>
+                    <a href="{% url 'store:create_delivery_request' %}" class="btn btn-primary">Создать заявку на доставку</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <p>Ваша корзина пуста.</p>
+{% endif %}
+
+<script>
+    // Добавляем обработчик клика на строки таблицы
+    document.querySelectorAll('tbody tr').forEach(row => {
+        row.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            if (productId) {
+                window.location.href = `/store/product/${productId}/`; // Исправленный путь
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block footer %}
+<footer class="py-4" style="background-color: rgba(0, 0, 0, 0.5);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <h5 class="text-white">О нас</h5>
+                <p class="text-white-50">Мы — команда "Медоеды", создающая лучшие продукты для вас.</p>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <h5 class="text-white">Контакты</h5>
+                <ul class="list-unstyled">
+                    <li><a href="info@медоеды.рф" class="text-white-50">Email: 	info@медоеды.рф</a></li>
+                    <li><a href="#" class="text-white-50">Телефон: +7 (123) 456-78-90</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <h5 class="text-white">Социальные сети</h5>
+                <ul class="list-unstyled">
+                    <li><a href="https://vk.com/team_honey_badgers" class="text-white-50">VK</a></li>
+                    <li><a href="https://t.me/honeybadgerteambot" class="text-white-50">Telegram</a></li>
+                    <li><a href="#" class="text-white-50">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center">
+            <p class="m-0 text-white-50">Медоеды &copy; Team 2022</p>
+        </div>
+    </div>
+</footer>
+{% endblock %}

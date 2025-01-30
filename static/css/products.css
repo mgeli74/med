@@ -1,0 +1,191 @@
+body {
+    padding-top: 76px;
+    background: url("../img/walper.jpg") no-repeat center top fixed;
+        }
+/* Стили для боковой панели с категориями */
+.list-group {
+    background-color: #00000080; /* Прозрачный чёрный фон */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Прозрачная белая рамка */
+    border-radius: 10px; /* Закруглённые углы */
+    padding: 10px; /* Внутренние отступы */
+    text-decoration: none;
+}
+.card-footer {
+    padding: 0; /* Убираем отступы внутри футера */
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Прозрачная белая рамка */
+    background-color: transparent; /* Прозрачный фон */
+    margin-top: auto; /* Прижимаем футер к низу */
+}
+/* Стили для тела карточки */
+.card-body {
+    padding: 15px; /* Внутренние отступы */
+    flex-grow: 1; /* Контент занимает оставшееся пространство */
+}
+
+/* Стили для заголовка и текста */
+.card-title {
+    font-size: 18px; /* Размер заголовка */
+    margin-bottom: 10px; /* Отступ снизу */
+}
+
+.card-text {
+    font-size: 14px; /* Размер текста */
+    color: rgba(255, 255, 255, 0.8); /* Полупрозрачный белый текст */
+}
+
+/* Стили для футера карточки (кнопка) */
+.card-footer {
+    padding: 0; /* Убираем отступы внутри футера */
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Прозрачная белая рамка */
+    background-color: transparent; /* Прозрачный фон */
+}
+/* Стили для карточки */
+.album-card {
+    background-color: #00000080; /* Прозрачный чёрный фон */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Прозрачная белая рамка */
+    border-radius: 10px; /* Закруглённые углы */
+    color: white; /* Белый текст */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Плавные переходы */
+    display: flex;
+    flex-direction: column;
+    height: 400px; /* Фиксированная высота карточки */
+    overflow: hidden; /* Скрываем всё, что выходит за пределы карточки */
+}
+/* Стили для изображений в карточках */
+.album-card img {
+    width: 100%; /* Ширина изображения на всю ширину карточки */
+    height: 200px; /* Фиксированная высота изображения */
+    object-fit: cover; /* Изображение масштабируется, чтобы заполнить область, сохраняя пропорции */
+    border-radius: 10px 10px 0 0; /* Закругление углов только сверху */
+}
+.album-card:hover {
+    background-color: #000000b3; /* Увеличение прозрачности фона */
+    transform: scale(1.05); /* Увеличение карточки */
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2); /* Подсветка */
+}
+.list-group-item {
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем рамку */
+    color: white; /* Белый текст */
+    transition: background-color 0.3s ease; /* Плавный переход */
+    text-decoration: none;
+}
+
+.list-group-item:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Подсветка при наведении */
+    text-decoration: none;
+}
+
+/* Стили для пагинации */
+.pagination {
+    background-color: #00000080; /* Прозрачный чёрный фон */
+    border: 1px solid rgba(0, 0, 0, 0.777); /* Прозрачная белая рамка */
+    border-radius: 10px; /* Закруглённые углы */
+    padding: 10px; /* Внутренние отступы */
+}
+
+.page-item .page-link {
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем рамку */
+    color: rgb(52, 174, 227); /* Белый текст */
+    transition: background-color 0.3s ease; /* Плавный переход */
+}
+
+.page-item .page-link:hover {
+    background-color: rgb(0, 0, 0); /* Подсветка при наведении */
+}
+
+.page-item.disabled .page-link {
+    color: rgba(0, 0, 0, 0.915); /* Полупрозрачный текст для неактивных элементов */
+}
+.pagination-button:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Подсветка при наведении */
+    color: white;
+    text-decoration: none;
+}
+
+.page-item.active .pagination-button {
+    background-color: rgba(0, 217, 255, 0.747); /* Активная кнопка */
+    border-color: rgba(0, 217, 255, 0.747);
+    color: rgb(61, 89, 130);
+}
+
+.page-item.disabled .pagination-button {
+    background-color: rgba(0, 0, 0, 0.5); /* Неактивная кнопка */
+    border-color: rgb(0, 0, 0);
+    color: rgba(255, 255, 255, 0.93);
+    cursor: not-allowed;
+}
+/* Стили для пагинатора */
+
+
+/* Стили для карточек с альбомами */
+.album-card {
+    background-color: #00000080; /* Прозрачный чёрный фон */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Прозрачная белая рамка */
+    border-radius: 10px; /* Закруглённые углы */
+    padding: 20px; /* Внутренние отступы */
+    color: white; /* Белый текст */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Плавные переходы */
+    text-decoration: none;
+}
+.btn-add-to-cart {
+    width: 100%; /* Кнопка на всю ширину */
+    padding: 10px; /* Отступы внутри кнопки */
+    background-color: rgba(40, 167, 69, 0.8); /* Полупрозрачный зелёный цвет */
+    color: white; /* Белый текст */
+    border: none; /* Убираем границу */
+    border-radius: 10px 10px 10px 10px; /* Закругление углов только внизу */
+    text-align: center; /* Текст по центру */
+    font-size: 16px; /* Размер текста */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы */
+    text-decoration: none; /* Убираем подчёркивание */
+}
+
+/* Эффекты при наведении на кнопку */
+.btn-add-to-cart:hover {
+    background-color: rgba(33, 136, 56, 0.9); /* Темно-зелёный цвет с большей прозрачностью */
+    transform: scale(1.02); /* Лёгкое увеличение */
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2); /* Подсветка */
+    cursor: pointer; /* Курсор в виде указателя */
+}
+
+.album-card:hover {
+    background-color: #000000b3; /* Увеличение прозрачности фона */
+    transform: scale(1.05); /* Увеличение карточки */
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2); /* Подсветка */
+    text-decoration: none;
+}
+
+.album-card h4,
+.album-card p {
+    color: white; /* Белый текст */
+    margin: 0; /* Убираем отступы */
+    text-decoration: none;
+}
+
+.album-card .btn {
+    background-color: rgba(255, 255, 255, 0.1); /* Прозрачный фон кнопки */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Прозрачная рамка кнопки */
+    color: white; /* Белый текст кнопки */
+    transition: background-color 0.3s ease; /* Плавный переход */
+    text-decoration: none;
+}
+
+.album-card .btn:hover {
+    background-color: rgba(255, 255, 255, 0.3); /* Подсветка кнопки при наведении */
+    text-decoration: none;
+}
+.back-button {
+    background-color: #00000080;
+    color: #ffffffb3;
+    border: 1px solid #1834eb;
+    text-decoration: none;
+}
+
+.back-button:hover {
+    background-color: #000000b3;
+    color: #3c00ff;
+    border-color: #007bff;
+    text-decoration: none;
+}

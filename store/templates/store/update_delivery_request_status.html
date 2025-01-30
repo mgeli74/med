@@ -1,0 +1,16 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'css/delivery.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Изменение статуса заказа</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+    <a href="{% url 'store:orders' %}" class="btn btn-secondary mt-3">Назад к заказам</a>
+</div>
+{% endblock %}

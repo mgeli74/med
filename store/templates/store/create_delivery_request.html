@@ -1,0 +1,30 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'css/delivery.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Создание заявки на доставку</h2>
+
+    <!-- Информация о заказе -->
+    <div class="order-info mb-4">
+        <h4>Информация о заказе:</h4>    
+        <ul>
+            <li><strong>Продукт:</strong> {{ basket.product.name }}</li>
+            <li><strong>Количество:</strong> {{ basket.quantity }}</li>
+            <li><strong>Цена за единицу:</strong> {{ basket.product.price }} руб.</li>
+            <li><strong>Общая стоимость:</strong> {{ basket.sum }} руб.</li>
+        </ul>
+    </div>
+
+    <!-- Форма создания заявки -->
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Создать заявку</button>
+    </form>
+    <!-- Кнопка "Назад в корзину" -->
+    <a href="{% url 'store:basket' %}" class="btn btn-secondary mt-3">Назад в корзину</a>
+</div>
+{% endblock %}

@@ -1,0 +1,188 @@
+/* Общие стили для body */
+body {
+    padding-top: 56px;
+    background: url("../img/walper.jpg") no-repeat center top fixed;
+    background-size: cover; /* Фон покрывает всю страницу */
+    color: white; /* Белый текст по умолчанию */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Минимальная высота страницы — весь экран */
+    margin: 0; /* Убираем отступы по умолчанию */
+}
+
+/* Стили для аватарки */
+.profile-avatar {
+    width: 230px;
+    height: 280px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+/* Стили для контейнера профиля */
+.profile-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 20px; /* Отступы для контента */
+}
+
+.profile-info {
+    margin-left: 20px;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-details p {
+    margin: 0;
+    font-size: 16px;
+    color: white; /* Белый текст для информации о пользователе */
+}
+
+.profile-details label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: white; /* Белый текст для меток */
+}
+
+/* Стили для кнопок */
+/* Стили для кнопок */
+.btn-custom, .btn-save {
+    background-color: black; /* Черный фон */
+    color: white; /* Белый текст */
+    border: 2px solid rgb(7, 187, 253); /* Голубая рамка */
+    padding: 10px 20px; /* Отступы внутри кнопки */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition: all 0.3s ease; /* Плавная анимация */
+    cursor: pointer;
+    border-radius: 5px; /* Закругленные углы */
+}
+
+.btn-custom:hover, .btn-save:hover {
+    text-decoration: none;
+    background-color: #333; /* Темно-серый фон при наведении */
+    color: white; /* Белый текст при наведении */
+    transform: scale(1.05); /* Увеличение кнопки при наведении */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Подсветка при наведении */
+}
+
+
+/* Стили для формы */
+.form-group label {
+    color: rgb(28, 26, 26); /* Темный цвет для меток */
+    font-weight: bold; /* Жирный шрифт для меток */
+}
+
+.form-control {
+    background-color: rgba(0, 0, 0, 0.7); /* Темный фон для полей ввода */
+    color: rgb(6, 6, 6); /* Темный текст в полях ввода */
+    border: 2px solid #088bf6; /* Голубая рамка */
+    border-radius: 1px; /* Углы без скругления */
+    padding: 10px; /* Отступы внутри полей */
+    transition: all 0.3s ease; /* Плавная анимация */
+}
+
+.form-control:focus {
+    background-color: rgba(0, 0, 0, 0.9); /* Темный фон при фокусе */
+    border-color: #00c7f4; /* Голубая рамка при фокусе */
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.908); /* Голубая подсветка при фокусе */
+}
+
+/* Стили для неактивных полей */
+.form-control:disabled {
+    background-color: black; /* Черный фон для неактивных полей */
+    color: white; /* Белый текст */
+    border: 2px solid red; /* Красная рамка */
+    opacity: 0.8; /* Легкая прозрачность */
+}
+
+/* Стили для кнопки добавления файла */
+.custom-file-label {
+    background-color: rgba(0, 0, 0, 0.7); /* Темный фон для кнопки добавления файла */
+    color: rgb(255, 253, 253); /* Белый текст */
+    border: 4px solid rgb(3, 196, 255); /* Голубая рамка */
+    border-radius: 1px; /* Углы без скругления */
+    padding: 10px; /* Отступы внутри поля */
+    transition: all 0.3s ease; /* Плавная анимация */
+}
+
+.custom-file-input {
+    color: rgb(255, 255, 255); /* Белый текст для поля загрузки файла */
+}
+
+.custom-file-input:focus ~ .custom-file-label {
+    background-color: rgba(0, 0, 0, 0.9); /* Темный фон при фокусе */
+    border-color: #fff; /* Белая рамка при фокусе */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Подсветка при фокусе */
+}
+
+/* Стили для footer */
+footer {
+    margin-top: auto; /* Прижимаем footer к низу */
+    background-color: rgba(0, 0, 0, 0.766); /* Полупрозрачный черный фон */
+    color: white; /* Белый текст в footer */
+    padding: 20px 0;
+    text-align: center;
+    width: 100%; /* Занимает всю ширину страницы */
+}
+
+/* Стили для dropdown-меню */
+.dropdown-menu {
+    background-color: rgba(0, 0, 0, 0.766);
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.741);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dropdown-menu.hide {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.dropdown-item {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 1);
+}
+
+.dropdown-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Стили для навбара */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+/* Стили для контейнера с кнопками */
+.profile-buttons {
+    display: flex;
+    flex-direction: column; /* Располагаем кнопки вертикально */
+    align-items: flex-end; /* Выравниваем кнопки по правому краю */
+    gap: 15px; /* Отступ между кнопками */
+    margin-left: auto; /* Сдвигаем контейнер с кнопками вправо */
+}
+

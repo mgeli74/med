@@ -1,0 +1,206 @@
+ /* Стили для карусели */
+        .carousel {
+            
+            max-width: 700px; /* Максимальная ширина карусели */
+            margin: 0 auto; /* Центрирование карусели */
+        }
+
+        .carousel-inner, .carousel-item {
+            height: 100%;
+        }
+
+        .carousel-item img {
+            max-width: 100%; /* Максимальная ширина изображения */
+            max-height: 650px; /* Максимальная высота изображения */
+            width: auto; /* Сохранение пропорций */
+            height: auto; /* Сохранение пропорций */
+            margin: 0 auto; /* Центрирование изображения */
+        }
+
+        /* Стили для карточек новостей */
+        .album-card {
+            background-color: #00000080; /* Прозрачный чёрный фон */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Прозрачная белая рамка */
+            border-radius: 10px; /* Закруглённые углы */
+            padding: 20px; /* Внутренние отступы */
+            color: white; /* Белый текст */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Плавные переходы */
+            text-decoration: none;
+            border: 1px solid #00000080;
+            overflow: hidden;
+            transition: transform 0.2s ease-in-out;
+            height: 400px; /* Фиксированная высота карточки */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .album-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 200px; /* Фиксированная высота изображения */
+            object-fit: cover; /* Растягиваем изображение на всю область */
+        }
+
+        .card-body {
+            padding: 15px;
+            flex-grow: 1; /* Растягиваем тело карточки на оставшееся пространство */
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        body {
+            padding-top: 56px;
+            background: url("../img/walper.jpg") no-repeat center top fixed;
+        }
+        .list-group {
+            background-color: rgba(0, 0, 0, 0.5); /* Прозрачный чёрный фон */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Прозрачная белая рамка */
+            border-radius: 10px; /* Закруглённые углы */
+            padding: 10px; /* Внутренние отступы */
+            
+        }
+
+        .list-group-item {
+            background-color: transparent; /* Прозрачный фон */
+            border: none; /* Убираем рамку */
+            color: white; /* Белый текст */
+            transition: background-color 0.3s ease; /* Плавный переход */
+        }
+
+        .list-group-item:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Подсветка при наведении */
+        }
+        .back-button {
+            background-color: #00000080;
+            color: #ffffffb3;
+            border: 1px solid #1834eb;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+
+        .back-button:hover {
+            background-color: #000000b3;
+            color: #3c00ff;
+            border-color: #007bff;
+            text-decoration: none;
+        }
+                /* Стили для пагинации */
+                /* Стили для пагинации */
+        .pagination {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: transparent; /* Убираем фон */
+            box-shadow: none; /* Убираем тень */
+        }
+
+        .page-item .page-link {
+            color: #fff; /* Белый текст */
+            background-color: transparent; /* Прозрачный фон */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Прозрачная граница */
+            margin: 0 2px; /* Отступы между элементами */
+        }
+
+        .page-item.active .page-link {
+            background-color: rgba(255, 255, 255, 0.2); /* Полупрозрачный фон для активной страницы */
+            border-color: rgba(255, 255, 255, 0.3); /* Граница активной страницы */
+        }
+
+        .page-item.disabled .page-link {
+            color: rgba(255, 255, 255, 0.5); /* Полупрозрачный текст для неактивных элементов */
+            background-color: transparent;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .page-item .page-link:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Легкий эффект при наведении */
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        @media (max-width: 768px) {
+        .product-card {
+                flex-direction: column; /* Элементы располагаются вертикально */
+            }
+
+            .product-image {
+                width: 100%; /* Изображение занимает всю ширину */
+            }
+
+            .product-details {
+                width: 100%; /* Информация занимает всю ширину */
+            }
+
+            .carousel-inner {
+                padding: 20px; /* Уменьшение отступов на мобильных устройствах */
+            }
+
+            .card-text {
+                margin-bottom: 50px; /* Уменьшение отступа снизу для текста */
+            }
+        }
+        .navbar {
+            position: fixed; /* Закрепляем навбар */
+            top: 0; /* Прижимаем к верхнему краю */
+            left: 0; /* Прижимаем к левому краю */
+            width: 100%; /* Растягиваем на всю ширину */
+            z-index: 1000; /* Убедимся, что навбар поверх других элементов */
+        }
+
+        /* Стили для закрепленной боковой панели */
+        .sidebar {
+            position: fixed; /* Закрепляем боковую панель */
+            top: 56px; /* Отступ сверху, чтобы не перекрывать навбар */
+            left: 0; /* Прижимаем к левому краю */
+            width: 25%; /* Ширина боковой панели */
+            height: calc(100vh - 56px); /* Высота на всю оставшуюся часть экрана */
+            overflow-y: auto; /* Добавляем прокрутку, если контент не помещается */
+            z-index: 999; /* Убедимся, что боковая панель поверх других элементов */
+        }
+
+        /* Стили для основного контента */
+        .main-content {
+            margin-top: 56px; /* Отступ сверху, чтобы не перекрывать навбар */
+            margin-left: 25%; /* Отступ слева, чтобы не перекрывать боковую панель */
+            padding: 20px; /* Добавляем отступы для красоты */
+        }
+
+        /* Стили для пагинации */
+        .pagination {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-item .page-link {
+            color: #fff;
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin: 0 2px;
+        }
+
+        .page-item.active .page-link {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .page-item.disabled .page-link {
+            color: rgba(255, 255, 255, 0.5);
+            background-color: transparent;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .page-item .page-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+       

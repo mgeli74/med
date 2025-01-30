@@ -1,0 +1,121 @@
+/* Основные стили для body */
+body {
+    font-family: Arial, sans-serif;
+    background: url("../img/walper.jpg") no-repeat center top fixed;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Заголовок страницы */
+h1 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+/* Контейнер для погоды */
+.weather-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Карточка погоды */
+.weather-card {
+    background: url("../img/fon1.jpg") no-repeat center top fixed;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 250px; /* Фиксированная ширина */
+    text-align: center;
+}
+
+.weather-card h2 {
+    font-size: 1.5em;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.weather-card .temperature {
+    font-size: 2em;
+    font-weight: bold;
+    color: #e74c3c;
+    margin: 10px 0;
+}
+
+.weather-card .wind,
+.weather-card .humidity,
+.weather-card .pressure,
+.weather-card .precipitation {
+    font-size: 1em;
+    color: #555;
+    margin: 5px 0;
+}
+
+.weather-card img {
+    width: 50px;
+    height: 50px;
+    margin-top: 10px;
+}
+
+/* Стили для информера погоды */
+.weather-informer {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 175px; /* Ширина информера */
+    text-align: center;
+    margin: 10px;
+}
+
+.weather-informer h3 {
+    font-size: 1.2em;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.weather-informer p {
+    font-size: 1em;
+    color: #555;
+    margin: 5px 0;
+}
+
+.weather-informer img {
+    width: 40px;
+    height: 40px;
+    margin-top: 10px;
+}
+h1 {
+    text-align: center;
+    color: #84dce5; /* Тёмный цвет текста */
+    margin-top: 80px; /* Отступ сверху (под панель) */
+    margin-bottom: 20px;
+    font-size: 2.5em; /* Размер шрифта */
+    font-weight: bold; /* Жирный шрифт */
+    text-transform: uppercase; /* Заглавные буквы */
+}
+/* Стили для таблицы */
+.weather-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.weather-container th,
+.weather-container td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.weather-container th {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.weather-container td {
+    background-color: #f9f9f9;
+}

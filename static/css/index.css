@@ -1,0 +1,130 @@
+body {
+    background: url("../img/wallpaper.jpg") no-repeat center top fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    padding-top: 76px;
+}
+
+.main-container {
+    display: flex;
+    
+    gap: 10px; /* Расстояние между блоками */
+    margin: auto; /* Центрирование контейнера */
+    max-width: 1200px; /* Максимальная ширина контейнера */
+    padding: 0 20px; /* Отступы по бокам */
+}
+
+
+/* Контейнер для погоды */
+
+.weather-container {
+    padding: 10px; /* Уменьшить отступы */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Выравнивание по центру */
+    gap: 10px; /* Расстояние между элементами */
+    margin: 20px;
+    background-color: rgba(255, 255, 255, 0.11); /* Полупрозрачный фон */
+    border-radius: 10px;
+    box-shadow: 
+        0 4px 8px rgba(57, 199, 211, 0.403), 
+        0 8px 16px rgba(64, 203, 221, 0.814),
+        inset 0 -50px 0 #39c7d3; /* Внутренний бордюр снизу */
+    width: 250px; /* Фиксированная ширина */
+    text-align: center; /* Выравнивание текста по центру */
+}
+
+/* Стили для карточки погоды */
+.weather-card {
+    color: #07c6fb;
+    text-align: center; /* Выравнивание текста по центру */
+}
+
+.weather-card h2 {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+    color: #0e59f0;
+}
+
+.weather-card .temperature {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #07c6fb;
+    margin: 10px 0;
+}
+
+.weather-card .wind,
+.weather-card .humidity,
+.weather-card .pressure,
+.weather-card .precipitation {
+    font-size: 0.9em;
+    color: #07c6fb;
+    margin: 5px 0;
+}
+
+.weather-card img {
+    width: 100px;
+    height: 100px;
+    margin-top: 10px;
+}
+
+
+/* Утилиты для текста */
+.text-white {
+    color: white;
+}
+
+
+.form-group a:hover {
+    color: #bf548b;
+}
+.weather-icon {
+    width: 100px; /* Ширина иконки */
+    height: 100px; /* Высота иконки */
+}
+
+@media (max-width: 768px) {
+    .weather-container {
+        width: 100%; /* Занимает всю ширину */
+        max-width: 300px; /* Ограничиваем максимальную ширину */
+        margin: 10px auto; /* Центрируем блок по горизонтали */
+        padding: 10px; /* Уменьшаем внутренние отступы */
+        background-color: rgba(255, 255, 255, 0.679); /* Делаем фон более прозрачным */
+        box-shadow: 0 2px 4px rgba(55, 186, 196, 0.503), 0 4px 8px rgba(55, 174, 210, 0.525); /* Уменьшаем тени */
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Центрируем содержимое по горизонтали */
+        text-align: center; /* Центрируем текст */
+        height: 370px; /* Убедитесь, что высота автоматическая */
+    }
+
+    .weather-card {
+        height: 100px; /* Убедитесь, что высота автоматическая */
+    }
+
+    .weather-card h2 {
+        font-size: 1.1em; /* Уменьшаем размер заголовка */
+        margin-bottom: 5px; /* Уменьшаем отступ снизу */
+    }
+
+    .weather-card .temperature {
+        font-size: 1.3em; /* Уменьшаем размер температуры */
+        margin: 5px 0; /* Уменьшаем отступы */
+    }
+
+    .weather-card .wind,
+    .weather-card .humidity,
+    .weather-card .pressure,
+    .weather-card .precipitation {
+        font-size: 0.8em; /* Уменьшаем размер текста */
+        margin: 3px 0; /* Уменьшаем отступы */
+    }
+
+    .weather-card img {
+        width: 40px; /* Уменьшаем размер иконки */
+        height: 40px;
+        margin-top: 5px; /* Уменьшаем отступ сверху */
+    }
+}

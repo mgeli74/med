@@ -1,0 +1,67 @@
+{% extends 'store/base.html' %}
+{% load static %}
+    <title>{{title}}</title>
+
+    {%  block css %}
+    <link href="{% static '/css/products.css' %}" rel="stylesheet">
+    {% endblock %}
+    {% block content %}
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-3">
+
+                <h1 class="my-4">Новости и события</h1>
+                <a href="{% url 'news:events' %}" class="btn btn-secondary mb-3">← Лента новостей</a>
+                <div class="list-group">
+                    {% for newscategorie in newscategories %}
+                    <a href="{% url 'news:newscategory' newscategorie.id %}" class="list-group-item">
+                        {{ newscategorie.name }}
+                    </a>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+            <!-- /.col-lg-3 -->
+
+{{ events }}
+
+        </div>
+
+    </div>
+    {% endblock %}
+
+{% block footer %}
+
+<footer class="py-4" style="background-color: rgba(0, 0, 0, 0.5);"> <!-- Прозрачный черный фон -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <h5 class="text-white">О нас</h5>
+                <p class="text-white-50">Мы — команда "Медоеды", создающая лучшие продукты для вас.</p> <!-- Полупрозрачный текст -->
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <h5 class="text-white">Контакты</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white-50">Email: info@medoedy.com</a></li> <!-- Полупрозрачный текст -->
+                    <li><a href="#" class="text-white-50">Телефон: +7 (123) 456-78-90</a></li> <!-- Полупрозрачный текст -->
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <h5 class="text-white">Социальные сети</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white-50">VK</a></li> <!-- Полупрозрачный текст -->
+                    <li><a href="#" class="text-white-50">Telegram</a></li> <!-- Полупрозрачный текст -->
+                    <li><a href="#" class="text-white-50">Instagram</a></li> <!-- Полупрозрачный текст -->
+                </ul>
+            </div>
+        </div>
+        <div class="text-center">
+            <p class="m-0 text-white-50">Медоеды &copy; Team 2022</p> <!-- Полупрозрачный текст -->
+        </div>
+    </div>
+</footer>
+{% endblock %}
+

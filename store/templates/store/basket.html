@@ -1,0 +1,72 @@
+{% extends 'store/item.html' %}
+
+{% block content %}
+<h1 class="text-white text-center">Корзина:</h1>
+{% if baskets %}
+    <div class="container d-flex justify-content-center">
+        <div class="order-summary" style="background-color: rgba(0, 0, 0, 0.7); padding: 20px; border-radius: 10px; width: 80%; max-width: 800px;">
+            <form method="post">
+                {% csrf_token %}
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th>Товар</th>
+                            <th>Количество</th>
+                            <th>Цена</th>
+                            <th>Сумма</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for basket in baskets %}
+                            <tr data-product-id="{{ basket.product.id }}" style="cursor: pointer;">
+                                <td>{{ basket.product.name }}</td>
+                                <td>
+                                    <input type="number" name="quantity_{{ basket.id }}" value="{{ basket.quantity }}" min="1" class="form-control" style="width: 80px;">
+                                </td>
+                                <td>{{ basket.product.price }} руб.</td>
+                                <td>{{ basket.sum }} руб.</td>
+                                <td>
+                                    <a href="{% url 'store:basket_remove' basket.id %}" class="btn btn-danger btn-smonclick" onclick="return confirm('Вы уверены, что хотите удалить товар из корзины?');">Удалить</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="text-white">
+                    <p>Общая сумма: {{ total_sum }} руб.</p>
+                    <p>Общее количество: {{ total_quantity }}</p>
+                </div>
+                <div class="d-flex justify-content-between mt-3">
+                    <a href="{% url 'store:basket_clear' %}" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить все товары из корзины?');">Удалить всё</a>
+                    <a href="{% url 'store:checkout' %}" class="btn btn-success">Оформить заказ</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% else %}
+    <p class="text-center text-white">Ваша корзина пуста.</p>
+    <div class="text-center">
+                    <a class="nav-link" href="{% url 'store:index' %}">Перейти в магазин <i class="fas fa-shopping-bag"></i></a>
+                </div>
+    
+{% endif %}
+
+<script>
+    // Добавляем обработчик клика на строки таблицы для перехода на страницу товара
+    document.querySelectorAll('tbody tr').forEach(row => {
+        row.addEventListener('click', function(event) {
+            // Игнорируем клики на input и кнопки
+            if (!event.target.tagName.toLowerCase().match(/input|a|button/)) {
+                const productId = this.getAttribute('data-product-id');
+                if (productId) {
+                    window.location.href = `/store/product/${productId}/`;
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+
+

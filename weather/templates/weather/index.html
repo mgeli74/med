@@ -1,0 +1,32 @@
+{% extends 'store/base.html' %}
+
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'css/weather.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+<body>
+    <h1>ИНФОРМАЦИЯ О ПОГОДЕ:</h1>
+    <div class="weather-container">
+                {% for weather in weather_list %}
+                    <div class="weather-card">
+                        <h2>{{ weather.city }}</h2>
+                        <img src="http://openweathermap.org/img/wn/{{ weather.icon }}@4x.png" alt="Weather Icon">
+                        <p class="temperature">{{ weather.temperature }}°C</p>
+                        <p class="wind">Ветер: {{ weather.wind_speed }} м/с, {{ weather.wind_direction }}</p>
+                        <p class="humidity">Влажность: {{ weather.humidity }}%</p>
+                        <p class="pressure">Давление: {{ weather.pressure }} мм рт. ст.</p>
+                        <p class="precipitation">Осадки: {{ weather.precipitation }}</p>
+                        
+                    </div>
+                {% endfor %}
+
+    </div>
+</body>
+{% endblock %}

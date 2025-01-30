@@ -1,0 +1,41 @@
+    body {
+            padding-top: 56px;
+        }
+    .card {
+            max-width: 300px; /* Максимальная ширина карточки */
+            margin: 0 auto; /* Центрирование карточки */
+            height: 100%; /* Фиксированная высота карточки */
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .card-img-top {
+            max-height: 200px; /* Ограничение высоты изображения */
+            object-fit: cover; /* Сохранение пропорций изображения */
+        }
+
+        .card-body {
+            flex: 1; /* Растягиваем тело карточки для заполнения пространства */
+            padding: 15px; /* Уменьшение отступов внутри карточки */
+        }
+
+        .card-title {
+            font-size: 1.25rem; /* Уменьшение размера заголовка */
+            margin-bottom: 10px; /* Отступ снизу для заголовка */
+        }
+
+        .card-text {
+            font-size: 0.9rem; /* Уменьшение размера текста */
+            overflow: hidden; /* Скрытие избыточного текста */
+            text-overflow: ellipsis; /* Добавление многоточия при переполнении */
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Ограничение количества строк */
+            -webkit-box-orient: vertical;
+        }
+
+        .card-footer {
+            padding: 10px; /* Уменьшение отступов в футере карточки */
+            text-align: center; /* Центрирование содержимого футера */
+        }
+

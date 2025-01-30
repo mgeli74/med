@@ -1,0 +1,18 @@
+body {
+	padding-top: 56px;
+    background: url("../img/walper.jpg") no-repeat center top fixed;
+}   
+.center-flex {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  padding-top: 150px;
+  
+}
+div.container6 {
+  height: 10em;
+  display: flex;
+  align-items: center;
+  justify-content: center }
+div.container6 p {
+  margin: 0 }

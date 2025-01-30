@@ -1,0 +1,70 @@
+{% extends 'users/profile.html' %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'css/profile_red.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h4 class="mt-3 mb-3">Редактирование профиля</h4>
+            <div class="profile-edit-container">
+                <!-- Аватарка слева -->
+                <div class="avatar-container">
+                    <img width="230" height="280"
+                         src="{% if user.image %} {{ user.image.url }} {% else %} {% static 'img/users/default_avatar.jpg' %} {% endif %}"
+                         class="profile-avatar">
+                </div>
+
+                <!-- Форма редактирования справа -->
+                <div class="form-container">
+                    <form action="{% url 'users:edit_profile' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="{{ form.first_name.id_for_label }}">Имя</label>
+                                    {{ form.first_name }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="{{ form.last_name.id_for_label }}">Фамилия</label>
+                                    {{ form.last_name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row mb-2">
+                            <div class="col-lg-12">
+                                <div class="custom-file">
+                                    {{ form.image }}
+                                    <input type="file" class="custom-file-input" id="userAvatar" size="50">
+                                    <label class="custom-file-label" for="{{ form.image.id_for_label }}">Выберите изображение</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-6">
+                                <label class="small mb-1" for="{{ form.username.id_for_label }}">Имя пользователя</label>
+                                {{ form.username }}
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="small mb-1" for="{{ form.email.id_for_label }}">Адрес электронной почты</label>
+                                {{ form.email }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-12" style="margin-top: 33px;">
+                                <input class="btn-save btn-block" type="submit" value="Сохранить">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

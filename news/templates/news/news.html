@@ -1,0 +1,221 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block css %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const likeButtons = document.querySelectorAll('.like-btn');
+    const dislikeButtons = document.querySelectorAll('.dislike-btn');
+
+    likeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const newsId = this.getAttribute('data-news-id');
+            const value = this.getAttribute('data-value');
+            vote(newsId, value);
+        });
+    });
+
+    dislikeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const newsId = this.getAttribute('data-news-id');
+            const value = this.getAttribute('data-value');
+            vote(newsId, value);
+        });
+    });
+
+    function vote(newsId, value) {
+        fetch(`/events/news/${newsId}/vote/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': '{{ csrf_token }}',  // Добавьте CSRF-токен для защиты
+            },
+            body: `value=${value}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                // Обновляем количество лайков и дизлайков на странице
+                document.getElementById('likes-count').textContent = data.likes;
+                document.getElementById('dislikes-count').textContent = data.dislikes;
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+});
+</script>
+
+    <link href="{% static 'css/posts.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            
+                <div class="col-lg-3">
+                    <h3 class="my-4 text-white">{{ news.title }}:</h3>
+                    <div class="list-group">
+                        <a href="{% url 'news:events' %}" class="list-group-item back-button">← Лента новостей</a>
+                    </div>
+                </div>
+            
+
+            <div class="col-lg-9">
+                <div class="card mb-4" style="background-color: rgba(0, 0, 0, 0.5); border: none;">
+                    <div class="card-body text-white">
+                        
+                            <a href="#">
+                                <img class="card-img-top" src="{{ news.image.url }}" alt="{{ news.name }}">
+                            </a>
+                            <p>{{ news.content }}</p>
+                            <p>{{ news.fulltext }}</p>
+                            <p>{{ news.data }}</p>
+                        
+                        {% csrf_token %}
+                        <div class="row">
+						    <div class="col-lg-12">
+						        <h3 class="my-4 text-white">Голосование:</h3>
+						        <div class="voting">
+                                    <button class="btn btn-outline-success like-btn" data-news-id="{{ news.id }}" data-value="1">
+                                        👍 <span id="likes-count">{{ likes }}</span>
+                                    </button>
+                                    <button class="btn btn-outline-danger dislike-btn" data-news-id="{{ news.id }}" data-value="-1">
+                                        👎 <span id="dislikes-count">{{ dislikes }}</span>
+                                    </button>
+                                </div>
+						    </div>
+						</div>
+                    </div>
+
+                   
+<!-- Блок с комментариями -->
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="my-4 text-white">Комментарии:</h3>
+        <div class="comments-container">
+            {% for comment in comments %}
+                <div class="comment-card">
+                    <div class="card-body text-white d-flex">
+                        <!-- Левая часть: аватарка и имя пользователя -->
+                        <div class="d-flex flex-column align-items-center me-3">
+                            <!-- Аватарка пользователя -->
+                            <div class="avatar-container mb-2">
+                                <img width="100" height="100"
+                                     src="{% if comment.author.image %} {{ comment.author.image.url }} {% else %} {% static 'img/users/default_avatar.jpg' %} {% endif %}"
+                                     class="img-thumbnail">
+                            </div>
+                            <!-- Имя пользователя -->
+                            <strong>{{ comment.author.username }}</strong>
+                        </div>
+                        <!-- Правая часть: текст комментария и дата -->
+                        <div class="comment-text">
+                            <p>{{ comment.text }}</p>
+                            <div class="comment-date">
+                                <small>{{ comment.created_date }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-white">Пока нет комментариев.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+					            
+                    <!-- Форма для добавления комментария -->
+                    {% if user.is_authenticated %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="my-4 text-white">Добавить комментарий:</h3>
+                                <form method="post" action="{% url 'news:post' post_id=news.id %}">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <textarea 
+                                            class="form-control comment-input" 
+                                            name="text" 
+                                            rows="3" 
+                                            placeholder="Введите ваш комментарий..."
+                                            required
+                                        ></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Отправить</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="text-white">Чтобы оставить комментарий, <a href="{% url 'users:login' %}">войдите</a> или <a href="{% url 'users:registration' %}">зарегистрируйтесь</a>.</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Прозрачный черный пагинатор -->
+                <nav aria-label="Page navigation example">
+                    <ul clusers:ass="pagination justify-content-center" style="background-color: rgba(0, 0, 0, 0.5); padding: 10px; border-radius: 5px;">
+                        <li class="page-item {% if not events.has_previous %} disabled {% endif %}">
+                            <a class="page-link text-white" style="background-color: transparent; border: 1px solid rgba(255, 255, 255, 0.2);"
+                               href="{% if events.has_previous %} {% url 'news:paginator' events.previous_page_number %} {% else %} # {% endif %}"
+                               tabindex="-1" aria-disabled="true">Предыдущая</a>
+                        </li>
+                        {% for page in events.paginator.page_range %}
+                            <li class="page-item">
+                                <a class="page-link text-white" style="background-color: transparent; border: 1px solid rgba(255, 255, 255, 0.2);"
+                                   href="{% url 'news:paginator' page %}">
+                                    {{ page }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                        <li class="page-item {% if not events.has_next %} disabled {% endif %}">
+                            <a class="page-link text-white" style="background-color: transparent; border: 1px solid rgba(255, 255, 255, 0.2);"
+                               href="{% if events.has_next %} {% url 'news:paginator' events.next_page_number %} {% else %} # {% endif %}">
+                                Следующая
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block footer %}
+    <footer class="py-5" style="background-color: rgba(0, 0, 0, 0.5);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="text-white">О нас</h5>
+                    <p class="text-white-50">Мы — команда "Медоеды", создающая лучшие продукты для вас.</p>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="text-white">Контакты</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50">Email: info@medoedy.com</a></li>
+                        <li><a href="#" class="text-white-50">Телефон: +7 (123) 456-78-90</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="text-white">Социальные сети</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50">VK</a></li>
+                        <li><a href="#" class="text-white-50">Telegram</a></li>
+                        <li><a href="#" class="text-white-50">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center">
+                <p class="m-0 text-white-50">Медоеды &copy; Team 2022</p>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+
+
+
+
+

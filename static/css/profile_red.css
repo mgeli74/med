@@ -1,0 +1,205 @@
+/* Общие стили для body */
+body {
+    padding-top: 56px;
+    background: url("../img/walper.jpg") no-repeat center top fixed;
+    background-size: cover; /* Фон покрывает всю страницу */
+    color: white; /* Белый текст по умолчанию */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Минимальная высота страницы — весь экран */
+    margin: 0; /* Убираем отступы по умолчанию */
+}
+
+/* Контейнер для аватарки и формы */
+.profile-edit-container {
+    display: flex;
+    align-items: flex-start; /* Выравниваем элементы по верхнему краю */
+    gap: 40px; /* Расстояние между аватаркой и формой */
+}
+
+/* Контейнер для аватарки */
+.avatar-container {
+    flex: 0 0 auto; /* Аватарка не растягивается */
+}
+
+/* Контейнер для формы */
+.form-container {
+    flex: 1; /* Форма занимает оставшееся пространство */
+}
+
+/* Стили для аватарки */
+.profile-avatar {
+    width: 230px;
+    height: 280px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+/* Стили для формы */
+.form-group label {
+    color: rgb(26, 24, 24); /* Белый цвет для меток */
+    font-weight: bold; /* Жирный шрифт для меток */
+}
+
+.form-control {
+    background-color: #111111d2; /* Красный фон для активных полей */
+    color: white; /* Белый текст */
+    border: 2px solid #00c7f4; /* Голубая рамка */
+    border-radius: 5px; /* Закругленные углы */
+    padding: 10px; /* Отступы внутри полей */
+    transition: all 0.3s ease; /* Плавная анимация */
+}
+
+.form-control:focus {
+    background-color: rgba(0, 0, 0, 0.9); /* Темный фон при фокусе */
+    border-color: #00c7f4; /* Голубая рамка при фокусе */
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.908); /* Голубая подсветка при фокусе */
+}
+
+.form-control:disabled {
+    background-color: #004cff; /* Синий фон для неактивных полей */
+    color: black; /* Черный текст */
+    border: 2px solid #0e1fde; /* Синяя рамка */
+    border-radius: 5px; /* Закругленные углы */
+    padding: 10px; /* Отступы внутри полей */
+    opacity: 1; /* Убираем прозрачность */
+    cursor: not-allowed; /* Курсор "недоступно" */
+}
+
+/* Стили для кнопки добавления файла */
+.custom-file-label {
+    background-color: #333; /* Черный фон */
+    color: white; /* Белый текст */
+    border: 2px solid #00c7f4; /* Голубая рамка */
+    border-radius: 5px; /* Закругленные углы */
+    padding: 10px; /* Отступы внутри поля */
+    transition: all 0.3s ease; /* Плавная анимация */
+    cursor: pointer; /* Курсор в виде указателя */
+    display: block; /* Чтобы кнопка занимала всю ширину */
+    text-align: center; /* Выравнивание текста по центру */
+}
+
+.custom-file-label:hover {
+    background-color: #dcae14a3; /* Темно-серый фон при наведении */
+    border-color: #5eb756; /* Голубая рамка при наведении */
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.908); /* Синяя подсветка при наведении */
+    transform: scale(1.05); /* Увеличение кнопки при наведении */
+}
+
+.custom-file-input {
+    opacity: 0; /* Скрываем стандартный input */
+    position: absolute; /* Позиционируем абсолютно */
+    z-index: -1; /* Отправляем input на задний план */
+}
+
+.custom-file-input:focus ~ .custom-file-label {
+    background-color: #333; /* Темно-серый фон при фокусе */
+    border-color: #00c7f4; /* Голубая рамка при фокусе */
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.908); /* Синяя подсветка при фокусе */
+}
+
+/* Стили для кнопки "Сохранить" */
+.btn-save {
+    background-color: black; /* Черный фон */
+    color: white; /* Белый текст */
+    border: 2px solid #01fe38; /* Белая рамка */
+    padding: 10px 20px; /* Отступы внутри кнопки */
+    text-align: center;
+    text-decoration: none; /* Убираем подчеркивание */
+    display: inline-block;
+    font-size: 16px;
+    transition: all 0.3s ease; /* Плавная анимация */
+    cursor: pointer;
+    border-radius: 5px; /* Закругленные углы */
+}
+
+.btn-save:hover {
+    background-color: #09ee599e; /* Темно-серый фон при наведении */
+    color: white; /* Белый текст при наведении */
+    transform: scale(1.10); /* Увеличение кнопки при наведении */
+    box-shadow: 0 0 10px rgb(57, 221, 243); /* Подсветка при наведении */
+}
+
+/* Стили для кнопок */
+.btn-custom {
+    background-color: rgba(75, 68, 68, 0.781); /* Серый фон */
+    color: rgb(0, 0, 0); /* Черный текст */
+    border: 2px solid rgba(255, 255, 255, 0.838); /* Белая рамка */
+    padding: 10px 20px; /* Отступы внутри кнопки */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition: all 0.3s ease; /* Плавная анимация */
+    cursor: pointer;
+    border-radius: 5px; /* Закругленные углы */
+}
+
+/* Стили для footer */
+footer {
+    margin-top: auto; /* Прижимаем footer к низу */
+    background-color: rgba(0, 0, 0, 0.766); /* Полупрозрачный черный фон */
+    color: white; /* Белый текст в footer */
+    padding: 20px 0;
+    text-align: center;
+    width: 100%; /* Занимает всю ширину страницы */
+}
+
+/* Стили для dropdown-меню */
+.dropdown-menu {
+    background-color: rgba(0, 0, 0, 0.766);
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.741);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dropdown-menu.hide {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.dropdown-item {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 1);
+}
+
+.dropdown-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Стили для навбара */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(255, 255, 255, 1);
+}
+/* Стили для полей "Имя пользователя" и "Почта" */
+.form-control[readonly] {
+    background-color: black; /* Черный фон */
+    color: white; /* Белый текст */
+    border: 2px solid #f60810; /* Голубая рамка */
+    border-radius: 5px; /* Закругленные углы */
+    padding: 10px; /* Отступы внутри полей */
+    cursor: not-allowed; /* Курсор "недоступно" */
+}
+
+.form-control[readonly]:focus {
+    border-color: #00c7f4; /* Голубая рамка при фокусе */
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.908); /* Синяя подсветка при фокусе */
+}

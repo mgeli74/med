@@ -1,0 +1,201 @@
+/* Основные стили */
+body {
+    background: url("../img/walper.jpg") no-repeat center top fixed;
+    background-size: cover;
+    padding-top: 56px;
+}
+.list-group {
+    background-color: #00000080; /* Прозрачный чёрный фон */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Прозрачная белая рамка */
+    border-radius: 10px; /* Закруглённые углы */
+    padding: 10px; /* Внутренние отступы */
+    text-decoration: none;
+}
+
+/* Карточка товара */
+.card {
+    background-color: #00000080; /* Прозрачный чёрный фон */
+    border: 1px solid rgba(0, 217, 255, 0.747); /* Прозрачная белая рамка */
+    border-radius: 10px; /* Закруглённые углы */
+    color: white; /* Белый текст */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Плавные переходы */
+    display: flex;
+    flex-direction: column;
+    height: 400px; /* Фиксированная высота карточки */
+    overflow: hidden; /* Скрываем всё, что выходит за пределы карточки */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.927);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-footer {
+    background-color: #00000080;
+    border-top: 1px solid #ddd;
+    padding: 15px;
+}
+
+/* Карусель */
+/* Контейнер для карусели */
+.carousel-container {
+    max-width: 600px; /* Максимальная ширина карусели */
+    margin: 0 auto; /* Центрирование карусели */
+}
+
+/* Стили для карусели */
+.carousel {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden; /* Скрытие выходящих за пределы элементов */
+}
+
+/* Изображения в карусели */
+.carousel-image {
+    height: 250px; /* Фиксированная высота изображения */
+    width: 100%; /* Ширина изображения на всю ширину контейнера */
+    object-fit: cover; /* Сохранение пропорций изображения */
+}
+
+/* Индикаторы карусели */
+.carousel-indicators {
+    bottom: -40px; /* Расположение индикаторов */
+}
+
+.carousel-indicators li {
+    background-color: #666;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+}
+
+.carousel-indicators .active {
+    background-color: #333;
+}
+
+/* Кнопки управления каруселью */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+}
+
+/* Текст и заголовки */
+h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+strong {
+    font-weight: bold;
+}
+
+/* Кнопки */
+.list-group-item {
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем рамку */
+    color: white; /* Белый текст */
+    transition: background-color 0.3s ease; /* Плавный переход */
+    text-decoration: none;
+}
+
+.list-group-item:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Подсветка при наведении */
+    text-decoration: none;
+}
+}
+.back-button {
+    background-color: #000000;
+    color: #ff0e0eb3;
+    border: 2px solid #1834eb;
+    text-decoration: none;
+}
+
+.back-button:hover {
+    background-color: #000000b3;
+    color: #3c00ff;
+    border-color: #007bff;
+    text-decoration: none;
+}
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+.btn-outline-success {
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.btn-outline-success:hover {
+    background-color: #28a745;
+    color: #fff;
+}
+
+/* Футер */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+    .carousel-image {
+        height: 150px; /* Уменьшение высоты изображения для мобильных устройств */
+    }
+
+    .card {
+        height: auto; /* Убираем фиксированную высоту карточки */
+    }
+
+    .card-body {
+        padding: 10px;
+    }
+
+    .card-footer {
+        padding: 8px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    .btn-secondary,
+    .btn-outline-success {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}

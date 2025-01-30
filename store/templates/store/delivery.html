@@ -1,0 +1,123 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'css/delivery.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="container"> <!-- Исправлено с conteiner на container -->
+    <h2 class="text-center">Мои заказы</h2>
+    <div class="text-center">
+        <a href="{% url 'users:profile' %}" class="btn-return">Вернуться в профиль</a>
+    </div>
+    <!-- Форма фильтрации -->
+    <form method="get" action="{% url 'store:orders' %}" class="filter-form">
+        <label for="status">Фильтр по статусу:</label>
+        <select name="status" id="status">
+            <option value="">Все</option>
+            <option value="В обработке">В обработке</option>
+            <option value="В пути">В пути</option>
+            <option value="Доставлено">Доставлено</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Применить</button>
+    </form>
+    {% if page_obj %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Номер заказа</th>
+                    <th>Товар</th>
+                    <th>Количество</th>
+                    <th>Адрес доставки</th>
+                    <th>Дата заказа</th>
+                    <th>Статус</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in page_obj %}
+                <tr class="order-row" data-order-id="{{ order.id }}" data-order-details="{{ order.details }}">
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.product.name }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>{{ order.address }}</td>
+                    <td>{{ order.created_at }}</td>
+                    <td>{{ order.status }}</td>
+                   
+                </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center">У вас пока нет заказов.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>У вас пока нет заказов.</p>
+    {% endif %}
+</div>
+<!-- Модальное окно для отображения деталей заказа -->
+<div id="orderModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Детали заказа</h2>
+        <div id="modal-body">
+            <!-- Сюда будет вставлена информация о заказе -->
+        </div>
+    </div>
+</div>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}">предыдущая</a>
+        {% endif %}
+        <span class="current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+        </span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">следующая</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">последняя &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+    // Получаем модальное окно
+    const modal = document.getElementById("orderModal");
+    // Получаем элемент для закрытия модального окна
+    const closeBtn = document.querySelector(".close");
+    // Получаем тело модального окна
+    const modalBody = document.getElementById("modal-body");
+    // Добавляем обработчики событий для строк таблицы
+    document.querySelectorAll(".order-row").forEach(row => {
+        row.addEventListener("click", () => {
+            // Получаем данные о заказе из атрибутов data
+            const orderId = row.getAttribute("data-order-id");
+            const orderDetails = row.getAttribute("data-order-details") || "Нет дополнительных деталей";
+            // Вставляем данные в модальное окно
+            modalBody.innerHTML = `
+                <p><strong>Номер заказа:</strong> ${orderId}</p>
+                <p><strong>Товар:</strong> ${row.cells[1].textContent}</p>
+                <p><strong>Количество:</strong> ${row.cells[2].textContent}</p>
+                <p><strong>Адрес доставки:</strong> ${row.cells[3].textContent}</p>
+                <p><strong>Дата заказа:</strong> ${row.cells[4].textContent}</p>
+                <p><strong>Статус:</strong> ${row.cells[5].textContent}</p>
+                <p><strong>Дополнительные детали:</strong> ${orderDetails}</p>
+            `;
+            // Отображаем модальное окно
+            modal.style.display = "block";
+        });
+    });
+    // Закрытие модального окна при клике на крестик
+    closeBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+    // Закрытие модального окна при клике вне его области
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'store/base.html' %}
+
+{% load static %}
+
+{%  block css %}
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация о погоде</title>
+</head>
+<body>
+    <h1>Информация о погоде</h1>
+    {% if latest_weather %}
+        <p><strong>Город:</strong> {{ latest_weather.city }}</p>
+        <p><strong>Описание:</strong> {{ latest_weather.description }}</p>
+        <p><strong>Температура:</strong> {{ latest_weather.temperature }}</p>
+        <p><strong>Скорость ветра:</strong> {{ latest_weather.wind_speed }}</p>
+        <p><strong>Направление ветра:</strong> {{ latest_weather.wind_direction }}</p>
+        <p><strong>Влажность:</strong> {{ latest_weather.humidity }}</p>
+        <p><strong>Осадки:</strong> {{ latest_weather.precipitation }}</p>
+        <p><strong>Время запроса:</strong> {{ latest_weather.time }}</p>
+        <p><strong>Иконка погоды:</strong></p>
+        <img src="http://openweathermap.org/img/wn/{{ latest_weather.icon }}@2x.png" alt="Weather Icon">
+    {% else %}
+        <p>Данные о погоде отсутствуют.</p>
+    {% endif %}
+</body>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'store/base.html' %}
+
+{% load static %}
+
+{% block css %} <link href="{% static 'css/index.css' %}" rel="stylesheet"> {% endblock %}
+<title>{{ title }}</title>
+
+{% block content %}
+
+<body>
+    <h1>Weather in {{ city }}</h1>
+    <p>Temperature: {{ temperature }}°C</p>
+    <p>Precipitation: {{ precipitation }}</p>
+    <p>Wind Direction: {{ wind_direction }}°</p>
+    <img src="http://openweathermap.org/img/wn/{{ icon }}@2x.png" alt="Weather Icon">
+</body>
+</html>
+{% endblock %}
