@@ -4,6 +4,10 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import telegram
 import logging
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import DeliveryRequestForm
 
 logger = logging.getLogger(__name__)
 
@@ -82,5 +86,41 @@ class DeliveryRequest(models.Model):
         # Логирование изменений статуса (не через сигнал)
         if old_status != self.status:
             logger.info(f"Статус заказа {self.id} изменен с {old_status} на {self.status}")
+
+@login_required
+def create_delivery_request(request):
+    if request.method == 'POST':
+        form = DeliveryRequestForm(request.POST)
+        if form.is_valid():
+            delivery_request = form.save(commit=False)
+            delivery_request.user = request.user
+            delivery_request.save()
+            
+            # Уменьшение количества товаров на складе
+            product = delivery_request.product
+            product.quantity -= delivery_request.quantity
+            product.save()
+            
+            # Очистка корзины после создания заявки
+            Basket.objects.filter(user=request.user, product=delivery_request.product).delete()
+            # Добавление сообщения об успешном заказе
+            messages.success(request, 'Ваш заказ успешно оформлен! Спасибо за покупку!')
+            return redirect('users:profile')
+    else:
+        baskets = Basket.objects.filter(user=request.user)
+        if baskets.exists():
+            basket = baskets.first()
+            form = DeliveryRequestForm(initial={
+                'product': basket.product,
+                'quantity': basket.quantity
+            })
+        else:
+            return redirect('store:basket')
+    
+    context = {
+        'form': form,
+        'title': 'Создание заявки на доставку'
+    }
+    return render(request, 'store/create_delivery_request.html', context)
 
 
