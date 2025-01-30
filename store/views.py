@@ -15,6 +15,10 @@ from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Sum, F
 
+
+
+
+
 def get_weather_data(city):
     api_key = settings.OPENWEATHERMAP_API_KEY
     url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
@@ -221,6 +225,12 @@ def create_delivery_request(request):
             delivery_request = form.save(commit=False)
             delivery_request.user = request.user
             delivery_request.save()
+            
+            # Уменьшение количества товаров на складе
+            product = delivery_request.product
+            product.quantity -= delivery_request.quantity
+            product.save()
+            
             # Очистка корзины после создания заявки
             Basket.objects.filter(user=request.user, product=delivery_request.product).delete()
             # Добавление сообщения об успешном заказе
@@ -242,6 +252,8 @@ def create_delivery_request(request):
         'title': 'Создание заявки на доставку'
     }
     return render(request, 'store/create_delivery_request.html', context)
+
+
 
 @login_required
 def orders(request):
