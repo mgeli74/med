@@ -60,7 +60,8 @@
             if (!event.target.tagName.toLowerCase().match(/input|a|button/)) {
                 const productId = this.getAttribute('data-product-id');
                 if (productId) {
-                    window.location.href = `/store/product/${productId}/`;
+                    const encodedProductId = encodeURIComponent(productId);
+                    window.location.href = `/store/product/${encodedProductId}/`;
                 }
             }
         });
