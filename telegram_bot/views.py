@@ -3,7 +3,7 @@ from telegram import Update
 from telegram.ext import Application
 
 # Инициализация приложения PTB
-application = Application.builder().token("8083943011:AAEYzROqso2wqBWNIttlZ5To4bkKHzrduNg").build()
+application = Application.builder().token("TELEGRAM_BOT_TOKEN").build()
 
 async def telegram_webhook(request):
     # Получаем данные из запроса

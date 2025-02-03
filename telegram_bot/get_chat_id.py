@@ -2,7 +2,7 @@ import requests
 
 def get_chat_id():
     # Токен вашего бота
-    token = "8083943011:AAEYzROqso2wqBWNIttlZ5To4bkKHzrduNg"
+    token = "TELEGRAM_BOT_TOKEN"
     
     # URL API Telegram для получения обновлений
     url = f"https://api.telegram.org/bot{token}/getUpdates"

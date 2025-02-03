@@ -63,7 +63,7 @@ async def get_data(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(f"Ошибка: {e}")
 
 # Настройка бота
-application = Application.builder().token("8083943011:AAEYzROqso2wqBWNIttlZ5To4bkKHzrduNg").build()
+application = Application.builder().token("TELEGRAM_BOT_TOKEN").build()
 
 # Регистрация команды /getdata
 application.add_handler(CommandHandler("getdata", get_data))

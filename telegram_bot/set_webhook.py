@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 logger = logging.getLogger(__name__)
 
 # Инициализация бота
-bot = telebot.TeleBot('8083943011:AAEYzROqso2wqBWNIttlZ5To4bkKHzrduNg')
+bot = telebot.TeleBot('TELEGRAM_BOT_TOKEN')
 
 
 

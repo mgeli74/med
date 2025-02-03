@@ -28,7 +28,7 @@ def save_old_status(sender, instance, **kwargs):
 
 @receiver(post_save, sender=DeliveryRequest)
 def delivery_request_created(sender, instance, created, **kwargs):
-    bot_token = '8083943011:AAEYzROqso2wqBWNIttlZ5To4bkKHzrduNg'
+    bot_token = 'TELEGRAM_BOT_TOKEN'
     chat_id = '-1002495838318'  # ID чата
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
 
