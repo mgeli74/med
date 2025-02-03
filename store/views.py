@@ -12,9 +12,9 @@ from django.urls import reverse
 import requests
 from django.conf import settings
 from django.contrib import messages
-from django.utils import timezone, url_has_allowed_host_and_scheme
+from django.utils import timezone
 from django.db.models import Sum, F
-
+from django.utils.http import url_has_allowed_host_and_scheme
 
 
 
