@@ -4,7 +4,7 @@ from store.models import ProductCategory, Product, Basket, DeliveryRequest
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
 from django.core.cache import cache
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from store.forms import DeliveryRequestForm, DeliveryRequestStatusForm
 from weather.views import get_weather_data
 from users.views import profile
@@ -12,7 +12,7 @@ from django.urls import reverse
 import requests
 from django.conf import settings
 from django.contrib import messages
-from django.utils import timezone
+from django.utils import timezone, url_has_allowed_host_and_scheme
 from django.db.models import Sum, F
 
 
@@ -102,7 +102,11 @@ def basket_add(request, product_id):
 def basket_remove(request, basket_id):
     basket = Basket.objects.get(id=basket_id)
     basket.delete()
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    referer = request.META.get('HTTP_REFERER', '/')
+    if url_has_allowed_host_and_scheme(referer, allowed_hosts=None):
+        return HttpResponseRedirect(referer)
+    else:
+        return redirect('/')
 
 def contact(request):
     context = {
