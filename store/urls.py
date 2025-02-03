@@ -1,5 +1,5 @@
 from django.urls import path
-from store.views import store, basket_add, basket_remove, product_detail, create_delivery_request, orders
+from store.views import store, basket_add, basket_remove, product_detail, create_delivery_request, orders, search, add_review, order_history
 from . import views
 app_name = 'store'
 
@@ -20,4 +20,7 @@ urlpatterns = [
     path('delivery/create/', create_delivery_request, name='create_delivery_request'),
     path('orders/', orders, name='orders'),
     path('update-status/<int:pk>/', views.update_delivery_request_status, name='update_delivery_request_status'),
+    path('search/', search, name='search'),
+    path('product/<int:product_id>/add_review/', add_review, name='add_review'),
+    path('order_history/', order_history, name='order_history'),
 ]

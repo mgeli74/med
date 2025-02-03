@@ -56,6 +56,9 @@ def delivery_request_created(sender, instance, created, **kwargs):
             f"📊 *Новый статус:* {instance.status}"
         )
 
+    if not created and instance.status == 'Доставлено':
+        instance.update_stock_and_clear_basket()
+
     payload = {
         "chat_id": chat_id,
         "text": message,

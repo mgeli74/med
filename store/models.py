@@ -1,4 +1,17 @@
 from django.db import models
+from django.db import models
+from django.contrib.auth.models import User
+from store.models import Product
+
+class Review(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.PositiveIntegerField()
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Отзыв от {self.user.username} на {self.product.name}'
 from users.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -82,4 +95,16 @@ class DeliveryRequest(models.Model):
         # Логирование изменений статуса (не через сигнал)
         if old_status != self.status:
             logger.info(f"Статус заказа {self.id} изменен с {old_status} на {self.status}")
+
+        # Уменьшение количества товаров на складе и удаление из корзины после успешного заказа
+        if self.status == 'Доставлено':
+            self.update_stock_and_clear_basket()
+
+    def update_stock_and_clear_basket(self):
+        # Уменьшение количества товаров на складе
+        self.product.quantity -= self.quantity
+        self.product.save()
+
+        # Удаление продуктов из корзины пользователя
+        Basket.objects.filter(user=self.user, product=self.product).delete()
 

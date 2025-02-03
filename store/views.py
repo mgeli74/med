@@ -13,10 +13,10 @@ import requests
 from django.conf import settings
 from django.contrib import messages
 from django.utils import timezone
-from django.db.models import Sum, F
+from django.db.models import Sum, F, Q
 from django.utils.http import url_has_allowed_host_and_scheme
-
-
+from store.models import Review
+from store.forms import ReviewForm
 
 
 def get_weather_data(city):
@@ -303,6 +303,45 @@ def update_delivery_request_status(request, pk):
         'delivery_request': delivery_request,
     }
     return render(request, 'store/update_delivery_request_status.html', context)
+
+def search(request):
+    query = request.GET.get('q')
+    products = Product.objects.filter(Q(name__icontains=query) | Q(description__icontains(query)))
+    context = {
+        'title': 'Результаты поиска',
+        'products': products,
+        'query': query,
+    }
+    return render(request, 'store/search_results.html', context)
+
+@login_required
+def add_review(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.product = product
+            review.save()
+            messages.success(request, 'Ваш отзыв был добавлен.')
+            return redirect('store:product_detail', product_id=product.id)
+    else:
+        form = ReviewForm()
+    context = {
+        'form': form,
+        'product': product,
+    }
+    return render(request, 'store/add_review.html', context)
+
+@login_required
+def order_history(request):
+    orders = DeliveryRequest.objects.filter(user=request.user).order_by('-created_at')
+    context = {
+        'orders': orders,
+        'title': 'История заказов',
+    }
+    return render(request, 'store/order_history.html', context)
 
 
 

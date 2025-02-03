@@ -1,5 +1,6 @@
 from django import forms
 from store.models import DeliveryRequest
+from store.models import Review
 
 class DeliveryRequestForm(forms.ModelForm):
     class Meta:
@@ -23,4 +24,9 @@ class DeliveryRequestStatusForm(forms.ModelForm):
         fields = ['status']
         widgets = {
             'status': forms.Select(choices=DeliveryRequest.STATUS_CHOICES),
-        }        
+        }
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['rating', 'comment']
