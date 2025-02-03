@@ -83,6 +83,19 @@
 {% endblock %}
 {% block scripts %}
 <script>
+    // Функция для экранирования HTML
+    function escapeHTML(str) {
+        return str.replace(/[&<>"']/g, function (match) {
+            const escapeMap = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            };
+            return escapeMap[match];
+        });
+    }
     // Получаем модальное окно
     const modal = document.getElementById("orderModal");
     // Получаем элемент для закрытия модального окна
@@ -93,8 +106,8 @@
     document.querySelectorAll(".order-row").forEach(row => {
         row.addEventListener("click", () => {
             // Получаем данные о заказе из атрибутов data
-            const orderId = row.getAttribute("data-order-id");
-            const orderDetails = row.getAttribute("data-order-details") || "Нет дополнительных деталей";
+            const orderId = escapeHTML(row.getAttribute("data-order-id"));
+            const orderDetails = escapeHTML(row.getAttribute("data-order-details") || "Нет дополнительных деталей");
             // Вставляем данные в модальное окно
             modalBody.innerHTML = `
                 <p><strong>Номер заказа:</strong> ${orderId}</p>
