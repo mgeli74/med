@@ -1,6 +1,5 @@
 from django import forms
-from store.models import DeliveryRequest
-from store.models import Review
+from store.models import DeliveryRequest, Review
 
 class DeliveryRequestForm(forms.ModelForm):
     class Meta:
