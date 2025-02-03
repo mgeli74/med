@@ -49,7 +49,8 @@
         row.addEventListener('click', function() {
             const productId = this.getAttribute('data-product-id');
             if (productId) {
-                window.location.href = `/store/product/${productId}/`; // Исправленный путь
+                const sanitizedProductId = encodeURIComponent(productId);
+                window.location.href = `/store/product/${sanitizedProductId}/`; // Исправленный путь
             }
         });
     });
