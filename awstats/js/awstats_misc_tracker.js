@@ -87,7 +87,9 @@ if (window.location.search == "" || window.location.search == "?") {
 	TRKjava=navigator.javaEnabled();
 	TRKuserid=awstats_getCookie("AWSUSER_ID");
 	TRKsessionid=awstats_getCookie("AWSSESSION_ID");
-	var TRKrandomnumber=Math.floor(Math.random()*10000);
+	var array = new Uint32Array(1);
+	window.crypto.getRandomValues(array);
+	var TRKrandomnumber = array[0];
 	if (TRKuserid == null || (TRKuserid=="")) { TRKuserid = "awsuser_id" + TRKnow.getTime() +"r"+ TRKrandomnumber; }
 	if (TRKsessionid == null || (TRKsessionid=="")) { TRKsessionid = "awssession_id" + TRKnow.getTime() +"r"+ TRKrandomnumber; }
 	awstats_setCookie("AWSUSER_ID", TRKuserid, 10000);
