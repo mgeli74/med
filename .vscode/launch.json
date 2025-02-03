@@ -20,8 +20,8 @@
             "webRoot": "${workspaceFolder}",
             "pathMappings": [
                 {
-                    "url": "chrome://global/content/aboutNetError.mjs",
-                    "path": "chrome://global/content/aboutNetError.mjs"
+                    "url": "firefox://global/content/aboutNetError.mjs",
+                    "path": "firefox://global/content/aboutNetError.mjs"
                 }
             ]
         },
