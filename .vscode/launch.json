@@ -17,7 +17,13 @@
             "reAttach": true,
             "name": "Launch localhost",
             "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
+            "webRoot": "${workspaceFolder}",
+            "pathMappings": [
+                {
+                    "url": "chrome://global/content/aboutNetError.mjs",
+                    "path": "chrome://global/content/aboutNetError.mjs"
+                }
+            ]
         },
         {
             "type": "firefox",
