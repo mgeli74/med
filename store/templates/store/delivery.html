@@ -111,11 +111,11 @@
             // Вставляем данные в модальное окно
             modalBody.innerHTML = `
                 <p><strong>Номер заказа:</strong> ${orderId}</p>
-                <p><strong>Товар:</strong> ${row.cells[1].textContent}</p>
-                <p><strong>Количество:</strong> ${row.cells[2].textContent}</p>
-                <p><strong>Адрес доставки:</strong> ${row.cells[3].textContent}</p>
-                <p><strong>Дата заказа:</strong> ${row.cells[4].textContent}</p>
-                <p><strong>Статус:</strong> ${row.cells[5].textContent}</p>
+                <p><strong>Товар:</strong> ${escapeHTML(row.cells[1].textContent)}</p>
+                <p><strong>Кол��честв��:</strong> ${escapeHTML(row.cells[2].textContent)}</p>
+                <p><strong>Адрес доставки:</strong> ${escapeHTML(row.cells[3].textContent)}</p>
+                <p><strong>Дата заказа:</strong> ${escapeHTML(row.cells[4].textContent)}</p>
+                <p><strong>Статус:</strong> ${escapeHTML(row.cells[5].textContent)}</p>
                 <p><strong>Дополнительные детали:</strong> ${orderDetails}</p>
             `;
             // Отображаем модальное окно
