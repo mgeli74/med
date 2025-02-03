@@ -1,10 +1,17 @@
 from django.db import models
 from django.db import models
 from django.contrib.auth.models import User
-from store.models import Product
+from users.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+import telegram
+import logging
+
+
+
 
 class Review(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    product = models.ForeignKey('store.Product', on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.PositiveIntegerField()
     comment = models.TextField()
@@ -12,11 +19,7 @@ class Review(models.Model):
 
     def __str__(self):
         return f'Отзыв от {self.user.username} на {self.product.name}'
-from users.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-import telegram
-import logging
+
 
 logger = logging.getLogger(__name__)
 
