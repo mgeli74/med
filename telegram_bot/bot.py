@@ -3,7 +3,7 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 from datetime import datetime
 import requests
-import .utils import send_to_telegram_channel
+from .utils import send_to_telegram_channel  # Исправленный импорт
 # Настройки подключения к MySQL (из Django)
 MYSQL_CONFIG = {
     'host': 'localhost',          # Хост
@@ -31,18 +31,6 @@ def format_message_html(data):
         f"<b>ID автора:</b> {author_id}"  # ID автора
     )
     return message
-
-def send_to_telegram_channel(message):
-    bot_token = '8083943011:AAEYzROqso2wqBWNIttlZ5To4bkKHzrduNg'
-    channel_id = '-1002495838318'  # Например, -1001234567890
-    url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
-    payload = {
-        'chat_id': channel_id,
-        'text': message,
-        'parse_mode': 'HTML'  # Поддержка HTML-разметки
-    }
-    response = requests.post(url, data=payload)
-    return response.json()
 
 # Пример использования
 send_to_telegram_channel("Привет, это тестовое сообщение от бота!")
