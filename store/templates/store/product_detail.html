@@ -1,0 +1,23 @@
+
+<!-- ...existing code... -->
+<h2>Отзывы</h2>
+{% for review in product.reviews.all %}
+    <div>
+        <strong>{{ review.user.username }}</strong>
+        <p>Рейтинг: {{ review.rating }}</p>
+        <p>{{ review.comment }}</p>
+        <p>{{ review.created_at }}</p>
+    </div>
+{% endfor %}
+
+{% if user.is_authenticated %}
+    <h3>Добавить отзыв</h3>
+    <form method="post" action="{% url 'store:add_review' product.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить</button>
+    </form>
+{% else %}
+    <p>Пожалуйста, <a href="{% url 'login' %}">войдите</a>, чтобы оставить отзыв.</p>
+{% endif %}
+<!-- ...existing code... -->
