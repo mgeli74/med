@@ -258,7 +258,8 @@ def create_delivery_request(request):
     
     context = {
         'form': form,
-        'title': 'Создание заявки на доставку'
+        'title': 'Создание заявки на доставку',
+        'basket': basket,
     }
     return render(request, 'store/create_delivery_request.html', context)
 
