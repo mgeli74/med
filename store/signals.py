@@ -3,12 +3,10 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from store.models import DeliveryRequest
 import logging
-from retrying import retry
 from decouple import config
 
 logger = logging.getLogger(__name__)
 
-@retry(stop_max_attempt_number=3, wait_fixed=2000)
 def send_telegram_message(url, payload):
     try:
         response = requests.post(url, data=payload)
@@ -17,7 +15,6 @@ def send_telegram_message(url, payload):
     except requests.exceptions.RequestException as e:
         logger.error(f"Ошибка при отправке сообщения: {e}")
 
-# Сохраняем старое значение статуса перед сохранением
 @receiver(pre_save, sender=DeliveryRequest)
 def save_old_status(sender, instance, **kwargs):
     if not instance.pk:
@@ -34,9 +31,6 @@ def delivery_request_created(sender, instance, created, **kwargs):
     bot_token = config('TELEGRAM_BOT_TOKEN')
     chat_id = config('TELEGRAM_CHAT_ID')
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-
-    logger.debug(f"Bot Token: {bot_token}")
-    logger.debug(f"Chat ID: {chat_id}")
 
     if created:
         message = (

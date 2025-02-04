@@ -79,6 +79,7 @@ class DeliveryRequest(models.Model):
     address = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=100, choices=STATUS_CHOICES, default='В обработке')
+    details = models.TextField(null=True, blank=True)  # Добавляем поле details
 
     def __str__(self):
         return f"Заказ {self.id} для {self.user.username}"

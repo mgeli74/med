@@ -2,8 +2,11 @@ from django.contrib import admin
 from .models import DeliveryRequest
 from store.models import ProductCategory, Product, Basket, ProductImage
 from .forms import DeliveryRequestStatusForm
+from decouple import config
+from telegram_bot.utils import send_to_telegram_channel
 
 admin.site.register(ProductCategory)
+
 class ProductImageInline(admin.TabularInline):  # или admin.StackedInline
     model = ProductImage
     extra = 1
@@ -15,8 +18,6 @@ class ProductAdmin(admin.ModelAdmin):
     fields = (('name', 'category'), 'description', ('price', 'quantity'), 'image')
     search_fields = ('name',)
     ordering = ('name',)
-
-
 
 class BasketAdmin(admin.TabularInline):
     model = Basket
@@ -45,4 +46,22 @@ class DeliveryRequestAdmin(admin.ModelAdmin):
         queryset.update(status='Доставлено')
     make_delivered.short_description = "Изменить статус на 'Доставлено'"
 
-admin.site.register(DeliveryRequest, DeliveryRequestAdmin)   
+    def save_model(self, request, obj, form, change):
+        if change:  # Если это изменение существующего объекта
+            old_obj = DeliveryRequest.objects.get(pk=obj.pk)
+            if old_obj.status != obj.status:  # Если статус изменился
+                bot_token = config('TELEGRAM_BOT_TOKEN')
+                chat_id = config('TELEGRAM_CHAT_ID')
+                message = (
+                    f"*Изменен статус заказа {obj.id}:*\n\n"
+                    f"👤 *Пользователь:* {obj.user.username}\n"
+                    f"📦 *Продукт:* {obj.product.name}\n"
+                    f"🔢 *Количество:* {obj.quantity}\n"
+                    f"🏠 *Адрес:* {obj.address}\n"
+                    f"📊 *Старый статус:* {old_obj.status}\n"
+                    f"📊 *Новый статус:* {obj.status}"
+                )
+                send_to_telegram_channel(message, chat_id, bot_token)
+        super().save_model(request, obj, form, change)
+
+admin.site.register(DeliveryRequest, DeliveryRequestAdmin)

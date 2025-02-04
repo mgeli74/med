@@ -55,7 +55,7 @@ class Vote(models.Model):
 
 # Функция для отправки сообщения в Telegram
 def send_telegram_message(message):
-    bot_token = '8083943011:AAEYzROqso2wqBWNIttlZ5To4bkKHzrduNg'
+    bot_token = 'TELEGRAM_BOT_TOKEN'
     chat_id = '-1002495838318'  # ID чата, куда будут отправляться сообщения
     bot = telegram.Bot(token=bot_token)
     bot.send_message(chat_id=chat_id, text=message)
