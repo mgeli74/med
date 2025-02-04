@@ -1,11 +1,13 @@
 import os.path
 from pathlib import Path
 import os
+from decouple import config
 
+TELEGRAM_BOT_TOKEN = config('TELEGRAM_BOT_TOKEN')
+TELEGRAM_CHAT_ID = config('TELEGRAM_CHAT_ID')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-TELEGRAM_BOT_TOKEN = '8083943011:AAEYzROqso2wqBWNIttlZ5To4bkKHzrduNg'
-TELEGRAM_CHAT_ID = '-1002495838318'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/

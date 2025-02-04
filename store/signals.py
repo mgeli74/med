@@ -5,12 +5,16 @@ from django.conf import settings
 from store.models import DeliveryRequest
 import logging
 from retrying import retry
+from decouple import config
 
 logger = logging.getLogger(__name__)
 
 @retry(stop_max_attempt_number=3, wait_fixed=2000)
 def send_telegram_message(url, payload):
+    logger.debug(f"URL: {url}")
+    logger.debug(f"Payload: {payload}")
     response = requests.post(url, data=payload)
+    logger.debug(f"Response: {response.status_code} - {response.text}")
     if response.status_code != 200:
         raise Exception(f"Ошибка при отправке сообщения: {response.text}")
 
@@ -28,8 +32,8 @@ def save_old_status(sender, instance, **kwargs):
 
 @receiver(post_save, sender=DeliveryRequest)
 def delivery_request_created(sender, instance, created, **kwargs):
-    bot_token = 'TELEGRAM_BOT_TOKEN'
-    chat_id = '-1002495838318'  # ID чата
+    bot_token = config('TELEGRAM_BOT_TOKEN')
+    chat_id = config('TELEGRAM_CHAT_ID')
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
 
     if created:
