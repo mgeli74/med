@@ -1,6 +1,7 @@
 import telebot
 from telebot import types
 import logging
+import requests
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')

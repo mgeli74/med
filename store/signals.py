@@ -1,7 +1,6 @@
 import requests
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from django.conf import settings
 from store.models import DeliveryRequest
 import logging
 from retrying import retry
@@ -36,6 +35,9 @@ def delivery_request_created(sender, instance, created, **kwargs):
     chat_id = config('TELEGRAM_CHAT_ID')
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
 
+    logger.debug(f"Bot Token: {bot_token}")
+    logger.debug(f"Chat ID: {chat_id}")
+
     if created:
         message = (
             f"*Новая заявка на доставку:*\n\n"
@@ -47,7 +49,10 @@ def delivery_request_created(sender, instance, created, **kwargs):
         )
     else:
         old_status = getattr(instance, '_old_status', None)
+        logger.debug(f"Old Status: {old_status}")
+        logger.debug(f"New Status: {instance.status}")
         if old_status is None or old_status == instance.status:
+            logger.debug("Статус не изменился, уведомление не отправлено.")
             return  # Если статус не изменился, ничего не делаем
 
         message = (
