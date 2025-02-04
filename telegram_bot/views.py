@@ -1,9 +1,11 @@
 from django.http import HttpResponse
 from telegram import Update
 from telegram.ext import Application
+import os
 
-# Инициализация приложения PTB
-application = Application.builder().token("TELEGRAM_BOT_TOKEN").build()
+# Инициализация приложения PTB с использованием переменной окружения
+telegram_bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
+application = Application.builder().token(telegram_bot_token).build()
 
 async def telegram_webhook(request):
     # Получаем данные из запроса
