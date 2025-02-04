@@ -1,32 +1,12 @@
-name: 
+name: "mgeli74"
 on:
   push:
     branches:
       - master
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Deploy to Hosting
-        uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: медоеды.рф/newsait/public_html/.
-
-
-name: Deploy and Run Django Application
-
-on:
-  push:
-    branches:
-      - main  # Укажите нужную ветку
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   deploy:
@@ -57,5 +37,5 @@ jobs:
     - name: Run server
       run: python manage.py runserver 0.0.0.0:8000
       env:
-        echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}"  >> .env
-        echo "TELEGRAM_CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID }}" >> .env
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
