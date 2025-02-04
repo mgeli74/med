@@ -10,24 +10,24 @@ logger = logging.getLogger(__name__)
 
 @retry(stop_max_attempt_number=3, wait_fixed=2000)
 def send_telegram_message(url, payload):
-    logger.debug(f"URL: {url}")
-    logger.debug(f"Payload: {payload}")
-    response = requests.post(url, data=payload)
-    logger.debug(f"Response: {response.status_code} - {response.text}")
-    if response.status_code != 200:
-        raise Exception(f"Ошибка при отправке сообщения: {response.text}")
+    try:
+        response = requests.post(url, data=payload)
+        response.raise_for_status()
+        logger.info(f"Сообщение успешно отправлено: {response.text}")
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Ошибка при отправке сообщения: {e}")
 
 # Сохраняем старое значение статуса перед сохранением
 @receiver(pre_save, sender=DeliveryRequest)
 def save_old_status(sender, instance, **kwargs):
-    if not instance.pk:  # Если объект создается впервые
+    if not instance.pk:
         instance._old_status = None
-        return
-    try:
-        old_instance = sender.objects.get(pk=instance.pk)
-        instance._old_status = old_instance.status
-    except sender.DoesNotExist:
-        instance._old_status = None
+    else:
+        try:
+            old_instance = sender.objects.get(pk=instance.pk)
+            instance._old_status = old_instance.status
+        except sender.DoesNotExist:
+            instance._old_status = None
 
 @receiver(post_save, sender=DeliveryRequest)
 def delivery_request_created(sender, instance, created, **kwargs):
@@ -49,11 +49,9 @@ def delivery_request_created(sender, instance, created, **kwargs):
         )
     else:
         old_status = getattr(instance, '_old_status', None)
-        logger.debug(f"Old Status: {old_status}")
-        logger.debug(f"New Status: {instance.status}")
         if old_status is None or old_status == instance.status:
             logger.debug("Статус не изменился, уведомление не отправлено.")
-            return  # Если статус не изменился, ничего не делаем
+            return
 
         message = (
             f"*Изменен статус заказа {instance.id}:*\n\n"
@@ -65,17 +63,10 @@ def delivery_request_created(sender, instance, created, **kwargs):
             f"📊 *Новый статус:* {instance.status}"
         )
 
-    if not created and instance.status == 'Доставлено':
-        instance.update_stock_and_clear_basket()
-
     payload = {
         "chat_id": chat_id,
         "text": message,
         "parse_mode": "Markdown"
     }
 
-    try:
-        logger.debug(f"Отправка сообщения в Telegram: {payload}")
-        send_telegram_message(url, payload)
-    except Exception as e:
-        logger.error(f"Ошибка при отправке сообщения в Telegram: {e}")
+    send_telegram_message(url, payload)
